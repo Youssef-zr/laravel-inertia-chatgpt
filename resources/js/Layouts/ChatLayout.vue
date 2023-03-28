@@ -8,7 +8,7 @@
         </div>
     </aside>
     <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
-        <div class="pt-6">
+        <div class="pt-3 bg-indigo-500">
             <main>
                 <slot />
             </main>
