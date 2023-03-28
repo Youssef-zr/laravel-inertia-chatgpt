@@ -24,8 +24,8 @@ class ChatGptStoreController extends Controller
         $messages[] = ['role' => 'user', 'content' => $request->input('promt')];
 
         if ($request->system != "") {
-            $system= ['role' => 'system', 'content' => $request->input('system')];
-            array_unshift($messages,$system);
+            $system = ['role' => 'system', 'content' => $request->input('system')];
+            array_unshift($messages, $system);
         }
 
         $response = OpenAI::chat()->create([
@@ -40,6 +40,11 @@ class ChatGptStoreController extends Controller
         ]);
 
         $messages[] = ['role' => 'assistant', 'content' => $response->choices[0]->message->content];
+
+        if ($messages[0]['role'] == "system") {
+            array_shift($messages);
+        }
+
         $chat = Chat::updateOrCreate(
             [
                 'id' => $id,
