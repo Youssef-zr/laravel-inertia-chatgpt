@@ -16,15 +16,20 @@ class ChatGptIndexController extends Controller
      */
     public function __invoke(string $id = null): Response
     {
-        return Inertia::render('Chat/ChatIndex', [
+        return Inertia::render('Chat/fiverrChat', [
             'chat' => fn () => $id ? Chat::findOrFail($id) : null,
             'messages' => Chat::latest()->where('user_id', Auth::id())->get()
         ]);
+    }
+
+    // fiverr new chat
+    public function newChat()
+    {
+        return Inertia::render('Chat/fiverrChat');
     }
 
     public function exportChat($chat_id)
     {
         return Excel::download(new ChatExport($chat_id), 'chatExport.xlsx');
     }
-
 }

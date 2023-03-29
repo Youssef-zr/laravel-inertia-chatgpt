@@ -57,4 +57,17 @@ class ChatGptStoreController extends Controller
 
         return redirect()->route('chat.show', [$chat->id]);
     }
+
+    public function updateUserRole()
+    {
+        $context = request()->context;
+        $id = request()->id;
+
+        $chat = Chat::find($id);
+
+        $chat->update([
+            'context' => $context
+        ]);
+        return redirect()->route('chat.show', [$chat->id]);
+    }
 }
